@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/gobuffalo/buffalo"
-	"github.com/gobuffalo/buffalo/middleware/basicauth"
+	"github.com/gobuffalo/mw-basicauth"
 	"github.com/markbates/willie"
 	"github.com/stretchr/testify/require"
 )
