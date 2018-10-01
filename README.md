@@ -27,4 +27,4 @@ app.Use(basicauth.Middleware(auth))
 
 1. Base64 Encode `username:password`, which becomes `dXNlcm5hbWU6cGFzc3dvcmQK` in the aforementioned example
 
-2. Then pass the following HTTP header along with all requests to protected endpoints: `Authorization: Basic: dXNlcm5hbWU6cGFzc3dvcmQK`
+2. Then pass the following HTTP header along with all requests to protected endpoints: `Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK`
