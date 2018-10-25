@@ -5,6 +5,8 @@ github.com/gobuffalo/mw-basicauth does not try to reinvent the wheel! Instead, i
 Thank you to the following **GIANTS**:
 
 
+* [github.com/BurntSushi/toml](https://godoc.org/github.com/BurntSushi/toml)
+
 * [github.com/cockroachdb/cockroach-go/crdb](https://godoc.org/github.com/cockroachdb/cockroach-go/crdb)
 
 * [github.com/dustin/go-humanize](https://godoc.org/github.com/dustin/go-humanize)
@@ -20,6 +22,8 @@ Thank you to the following **GIANTS**:
 * [github.com/gobuffalo/buffalo](https://godoc.org/github.com/gobuffalo/buffalo)
 
 * [github.com/gobuffalo/buffalo-plugins/plugins](https://godoc.org/github.com/gobuffalo/buffalo-plugins/plugins)
+
+* [github.com/gobuffalo/buffalo-plugins/plugins/plugdeps](https://godoc.org/github.com/gobuffalo/buffalo-plugins/plugins/plugdeps)
 
 * [github.com/gobuffalo/buffalo/binding](https://godoc.org/github.com/gobuffalo/buffalo/binding)
 
@@ -49,9 +53,13 @@ Thank you to the following **GIANTS**:
 
 * [github.com/gobuffalo/github_flavored_markdown/internal/russross/blackfriday](https://godoc.org/github.com/gobuffalo/github_flavored_markdown/internal/russross/blackfriday)
 
+* [github.com/gobuffalo/logger](https://godoc.org/github.com/gobuffalo/logger)
+
 * [github.com/gobuffalo/makr](https://godoc.org/github.com/gobuffalo/makr)
 
 * [github.com/gobuffalo/mapi](https://godoc.org/github.com/gobuffalo/mapi)
+
+* [github.com/gobuffalo/meta](https://godoc.org/github.com/gobuffalo/meta)
 
 * [github.com/gobuffalo/mw-basicauth](https://godoc.org/github.com/gobuffalo/mw-basicauth)
 
@@ -97,6 +105,8 @@ Thank you to the following **GIANTS**:
 
 * [github.com/gobuffalo/x/randx](https://godoc.org/github.com/gobuffalo/x/randx)
 
+* [github.com/gofrs/uuid](https://godoc.org/github.com/gofrs/uuid)
+
 * [github.com/gorilla/context](https://godoc.org/github.com/gorilla/context)
 
 * [github.com/gorilla/mux](https://godoc.org/github.com/gorilla/mux)
@@ -123,6 +133,8 @@ Thank you to the following **GIANTS**:
 
 * [github.com/joho/godotenv](https://godoc.org/github.com/joho/godotenv)
 
+* [github.com/karrick/godirwalk](https://godoc.org/github.com/karrick/godirwalk)
+
 * [github.com/kballard/go-shellquote](https://godoc.org/github.com/kballard/go-shellquote)
 
 * [github.com/lib/pq](https://godoc.org/github.com/lib/pq)
@@ -142,6 +154,8 @@ Thank you to the following **GIANTS**:
 * [github.com/markbates/refresh/refresh](https://godoc.org/github.com/markbates/refresh/refresh)
 
 * [github.com/markbates/refresh/refresh/web](https://godoc.org/github.com/markbates/refresh/refresh/web)
+
+* [github.com/markbates/safe](https://godoc.org/github.com/markbates/safe)
 
 * [github.com/markbates/sigtx](https://godoc.org/github.com/markbates/sigtx)
 
@@ -174,6 +188,10 @@ Thank you to the following **GIANTS**:
 * [github.com/sourcegraph/annotate](https://godoc.org/github.com/sourcegraph/annotate)
 
 * [github.com/sourcegraph/syntaxhighlight](https://godoc.org/github.com/sourcegraph/syntaxhighlight)
+
+* [github.com/spf13/cobra](https://godoc.org/github.com/spf13/cobra)
+
+* [github.com/spf13/pflag](https://godoc.org/github.com/spf13/pflag)
 
 * [golang.org/x/crypto/bcrypt](https://godoc.org/golang.org/x/crypto/bcrypt)
 

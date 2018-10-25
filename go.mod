@@ -7,6 +7,7 @@ require (
 	github.com/gobuffalo/httptest v1.0.2
 	github.com/gobuffalo/pop v4.8.5+incompatible // indirect
 	github.com/gobuffalo/x v0.0.0-20181025144725-c5ab981b47cc // indirect
+	github.com/kr/pty v1.1.3 // indirect
 	github.com/pkg/errors v0.8.0
 	github.com/stretchr/testify v1.2.2
 )
