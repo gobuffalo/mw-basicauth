@@ -15,6 +15,9 @@ var (
 
 	// ErrAuthFail is returned when the client fails basic authentication
 	ErrAuthFail = errors.New("invalid basic auth username or password")
+
+	// ErrUnauthorized is returned in any case the basic authentication fails
+	ErrUnauthorized = errors.New("Unauthorized")
 )
 
 // Authorizer is used to authenticate the basic auth username/password.
@@ -28,22 +31,22 @@ func Middleware(auth Authorizer) buffalo.MiddlewareFunc {
 			token := strings.SplitN(c.Request().Header.Get("Authorization"), " ", 2)
 			if len(token) != 2 {
 				c.Response().Header().Set("WWW-Authenticate", `Basic realm="Basic Authentication"`)
-				return c.Error(http.StatusUnauthorized, errors.New("Unauthorized"))
+				return c.Error(http.StatusUnauthorized, ErrUnauthorized)
 			}
 			b, err := base64.StdEncoding.DecodeString(token[1])
 			if err != nil {
-				return ErrAuthFail
+				return c.Error(http.StatusUnauthorized, ErrUnauthorized)
 			}
 			pair := strings.SplitN(string(b), ":", 2)
 			if len(pair) != 2 {
-				return ErrAuthFail
+				return c.Error(http.StatusUnauthorized, ErrUnauthorized)
 			}
 			success, err := auth(c, pair[0], pair[1])
 			if err != nil {
 				return errors.WithStack(err)
 			}
 			if !success {
-				return ErrAuthFail
+				return c.Error(http.StatusUnauthorized, ErrUnauthorized)
 			}
 			return next(c)
 		}
