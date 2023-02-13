@@ -1,17 +1,16 @@
-<p align="center"><img src="https://github.com/gobuffalo/buffalo/blob/master/logo.svg" width="360"></p>
+# mw-basicauth
 
-<p align="center">
-  <a href="https://godoc.org/github.com/gobuffalo/mw-basicauth"><img src="https://godoc.org/github.com/gobuffalo/mw-basicauth?status.svg" alt="GoDoc"></a>
-  <a href="https://travis-ci.org/gobuffalo/mw-basicauth"><img src="https://travis-ci.org/gobuffalo/mw-basicauth.svg?branch=master" alt="Build Status"></a>
-  <a href="https://goreportcard.com/report/github.com/gobuffalo/mw-basicauth"><img src="https://goreportcard.com/badge/github.com/gobuffalo/mw-basicauth" alt="Go Report Card" /></a>
-</p>
+[![Standard Test](https://github.com/gobuffalo/mw-basicauth/actions/workflows/standard-go-test.yml/badge.svg)](https://github.com/gobuffalo/mw-basicauth/actions/workflows/standard-go-test.yml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/gobuffalo/mw-basicauth.svg)](https://pkg.go.dev/github.com/gobuffalo/mw-basicauth)
+[![Go Report Card](https://goreportcard.com/badge/github.com/gobuffalo/mw-basicauth)](https://goreportcard.com/report/github.com/gobuffalo/mw-basicauth)
 
-# [Basic HTTP Authentication](https://tools.ietf.org/html/rfc7617) Middleware for [Buffalo](https://github.com/gobuffalo/buffalo)
+[Basic HTTP Authentication](https://tools.ietf.org/html/rfc7617) Middleware
+for [Buffalo](https://github.com/gobuffalo/buffalo)
 
 ## Installation
 
-```bash
-$ go get -u github.com/gobuffalo/mw-basicauth
+```console
+$ go get github.com/gobuffalo/mw-basicauth
 ```
 
 ## Usage
@@ -20,6 +19,7 @@ $ go get -u github.com/gobuffalo/mw-basicauth
 auth := func(c buffalo.Context, u, p string) (bool, error) {
     return (u == "username" && p == "password"), nil
 }
+
 app.Use(basicauth.Middleware(auth))
 ```
 
