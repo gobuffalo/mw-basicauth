@@ -2,10 +2,11 @@ package basicauth_test
 
 import (
 	"encoding/base64"
-	"fmt"
+	"net/http"
 	"testing"
 
 	"github.com/gobuffalo/buffalo"
+	"github.com/gobuffalo/buffalo/render"
 	"github.com/gobuffalo/httptest"
 	basicauth "github.com/gobuffalo/mw-basicauth"
 	"github.com/stretchr/testify/require"
@@ -13,7 +14,7 @@ import (
 
 func app() *buffalo.App {
 	h := func(c buffalo.Context) error {
-		return c.Render(200, nil)
+		return c.Render(200, render.String("Welcome"))
 	}
 	auth := func(c buffalo.Context, u, p string) (bool, error) {
 		return (u == "tester" && p == "pass123"), nil
@@ -25,50 +26,37 @@ func app() *buffalo.App {
 }
 
 func TestBasicAuth(t *testing.T) {
-	r := require.New(t)
+	tests := []struct {
+		status  int
+		name    string
+		auth    string
+		message string
+	}{
+		{http.StatusUnauthorized, "missing", "MISSING", "no basic auth credentials defined"},
+		{http.StatusUnauthorized, "empty", "", "no basic auth credentials defined"},
+		{http.StatusUnauthorized, "badcreds", "badcreds", "no basic auth credentials defined"},
+		{http.StatusUnauthorized, "bad creds", "bad creds", "no basic auth credentials defined"},
+		{http.StatusUnauthorized, "invalid", "Basic " + base64.StdEncoding.EncodeToString([]byte("badcredvalue")), "Unauthorized"},
+		{http.StatusUnauthorized, "wrong", "Basic " + base64.StdEncoding.EncodeToString([]byte("foo:bar")), "invalid basic auth username"},
+		{http.StatusOK, "valid", "Basic " + base64.StdEncoding.EncodeToString([]byte("tester:pass123")), "Welcome"},
+	}
 
-	w := httptest.New(app())
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			r := require.New(t)
+			w := httptest.New(app())
 
-	// missing authorization
-	res := w.HTML("/").Get()
-	r.Equal(401, res.Code)
-	r.Contains(res.Header().Get("WWW-Authenticate"), `Basic realm="Basic Authentication"`)
-	r.Contains(res.Body.String(), "Unauthorized")
-
-	// bad header value, not Basic
-	req := w.HTML("/")
-	req.Headers["Authorization"] = "badcreds"
-	res = req.Get()
-	r.Equal(401, res.Code)
-	r.Contains(res.Body.String(), "Unauthorized")
-
-	// bad cred values
-	req = w.HTML("/")
-	req.Headers["Authorization"] = "bad creds"
-	res = req.Get()
-	r.Equal(401, res.Code)
-	r.Contains(res.Body.String(), "Unauthorized")
-
-	// invalid cred values in authorization
-	creds := base64.StdEncoding.EncodeToString([]byte("badcredvalue"))
-	req = w.HTML("/")
-	req.Headers["Authorization"] = fmt.Sprintf("Basic %s", creds)
-	res = req.Get()
-	r.Equal(401, res.Code)
-	r.Contains(res.Body.String(), "Unauthorized")
-
-	// wrong cred values in authorization
-	creds = base64.StdEncoding.EncodeToString([]byte("foo:bar"))
-	req = w.HTML("/")
-	req.Headers["Authorization"] = fmt.Sprintf("Basic %s", creds)
-	res = req.Get()
-	r.Equal(401, res.Code)
-	r.Contains(res.Body.String(), "Unauthorized")
-
-	// valid cred values
-	creds = base64.StdEncoding.EncodeToString([]byte("tester:pass123"))
-	req = w.HTML("/")
-	req.Headers["Authorization"] = fmt.Sprintf("Basic %s", creds)
-	res = req.Get()
-	r.Equal(200, res.Code)
+			// missing authorization
+			req := w.HTML("/")
+			if tt.auth != "MISSING" {
+				req.Headers["Authorization"] = tt.auth
+			}
+			res := req.Get()
+			r.Equal(tt.status, res.Code)
+			if tt.status == http.StatusUnauthorized {
+				r.Contains(res.Header().Get("WWW-Authenticate"), `Basic realm="Basic Authentication"`)
+			}
+			r.Contains(res.Body.String(), tt.message)
+		})
+	}
 }
